@@ -28,4 +28,4 @@ spec:
   decryption:
     provider: sops
     secretRef:
-      name: sops-pgp
+      name: sops-gpg
