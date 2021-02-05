@@ -19,7 +19,8 @@ spec:
     primary:
       persistence:
         enabled: true
-        existingClaim: fopido-pvc
+        storageClass: local-path
+        size: 10GiB
     auth:
       database: fopido_prod
       username: fopido_user
