@@ -9,5 +9,5 @@ resources:
 namespace: clavis
 
 images:
-  - name: ghcr.io/sladkoff/clavis
+  - name: ghcr.io/sladkoff/clavis-3
     newTag: 1.0.0

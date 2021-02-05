@@ -1,5 +1,5 @@
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: clavis-ingress
@@ -13,5 +13,7 @@ spec:
       http:
         paths:
           - backend:
-              serviceName: clavis
-              servicePort: 80
+              service:
+                name: clavis
+                port:
+                  number: 80
