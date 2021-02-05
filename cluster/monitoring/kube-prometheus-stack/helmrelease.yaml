@@ -17,6 +17,7 @@ spec:
       interval: 5m
   values:
     grafana:
+      replicas: 1
       ingress:
         enabled: true
         annotations:
@@ -25,3 +26,7 @@ spec:
           ingress.kubernetes.io/ssl-redirect: "true"
         hosts:
           - grafana.sldk.de
+    alertmanager:
+      replicas: 1
+    prometheus:
+      replicas: 1
