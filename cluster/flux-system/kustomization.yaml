@@ -6,5 +6,4 @@ resources:
 - helmrepositories/bitnami-charts.yaml
 
 - kustomizations/gotk-fopido-kustomization.yaml
-- kustomizations/gotk-fopido-secrets-kustomization.yaml
 - kustomizations/gotk-clavis-kustomization.yaml
