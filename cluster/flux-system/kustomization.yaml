@@ -4,5 +4,6 @@ resources:
 - gotk-components.yaml
 - gotk-sync.yaml
 - secrets/fopido-git-secret.yaml
+- helmrepositories/bitnami-charts.yaml
 - gotk-fopido-source.yaml
 - gotk-fopido-kustomization.yaml
