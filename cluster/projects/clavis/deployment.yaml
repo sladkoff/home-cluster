@@ -1,0 +1,22 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clavis
+spec:
+  selector:
+    matchLabels:
+      app: clavis
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: clavis
+    spec:
+      containers:
+        - name: clavis
+          image: ghcr.io/sladkoff/clavis-3:latest
+          ports:
+            - containerPort: 9000
+      imagePullSecrets:
+        - name: github-container-registry

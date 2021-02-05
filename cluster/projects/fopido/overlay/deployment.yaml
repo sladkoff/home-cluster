@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fopido
+spec:
+  template:
+    spec:
+      containers:
+        - name: fopido
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://fopido-mariadb/fopido_prod
+            - name: SPRING_DATASOURCE_USERNAME
+              value: root
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: fopido-mariadb
+                  key: mariadb-root-password
+      imagePullSecrets:
+        - name: github-container-registry

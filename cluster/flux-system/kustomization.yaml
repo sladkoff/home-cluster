@@ -3,7 +3,8 @@ kind: Kustomization
 resources:
 - gotk-components.yaml
 - gotk-sync.yaml
-- secrets/fopido-git-secret.yaml
 - helmrepositories/bitnami-charts.yaml
-- gotk-fopido-source.yaml
-- gotk-fopido-kustomization.yaml
+
+- kustomizations/gotk-fopido-kustomization.yaml
+- kustomizations/gotk-fopido-secrets-kustomization.yaml
+- kustomizations/gotk-clavis-kustomization.yaml

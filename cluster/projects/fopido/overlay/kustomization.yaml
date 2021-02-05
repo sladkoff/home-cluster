@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../base
+  - ingress.yaml
+
+namespace: fopido
+
+images:
+  - name: ghcr.io/sladkoff/fopido
+    newTag: 2.0.1
+
+patchesStrategicMerge:
+  - deployment.yaml

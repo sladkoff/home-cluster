@@ -1,0 +1,17 @@
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: clavis-ingress
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    ingress.kubernetes.io/ssl-force-host: "true"
+    ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  rules:
+    - host: www.fortepiano-unterricht.de
+      http:
+        paths:
+          - backend:
+              serviceName: clavis
+              servicePort: 80

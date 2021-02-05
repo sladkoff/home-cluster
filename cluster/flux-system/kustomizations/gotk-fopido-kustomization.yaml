@@ -6,10 +6,14 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m0s
-  path: ./kustomize/overlays/prod
+  path: ./cluster/projects/fopido/overlay
   prune: true
   sourceRef:
     kind: GitRepository
-    name: fopido
+    name: flux-system
   validation: client
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-gpg
 
