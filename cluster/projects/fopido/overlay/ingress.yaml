@@ -11,9 +11,10 @@ spec:
     - host: docs.fortepiano-unterricht.de
       http:
         paths:
-          - backend:
+          - path: /
+            pathType: Prefix
+            backend:
               service:
                 name: fopido
                 port:
                   number: 80
-            path: /
