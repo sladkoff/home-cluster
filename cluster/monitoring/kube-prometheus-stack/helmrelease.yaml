@@ -26,6 +26,9 @@ spec:
           ingress.kubernetes.io/ssl-redirect: "true"
         hosts:
           - grafana.sldk.de
+      persistence:
+        enabled: true
+        storageClassName: local-path
     alertmanager:
       replicas: 1
     prometheus:
