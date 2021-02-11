@@ -81,20 +81,21 @@ spec:
           persistentVolumeClaim:
             claimName: nginx-fileshare-pvc
 ---
-apiVersion: extensions/v1beta1
-kind: Ingress
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
 metadata:
-  name: nginx-fileshare-ingress
+  name: nginx-fileshare
   namespace: media
-  annotations:
-    kubernetes.io/ingress.class: traefik
-    ingress.kubernetes.io/ssl-force-host: "true"
-    ingress.kubernetes.io/ssl-redirect: "true"
 spec:
-  rules:
-    - host: dl.sldk.de
-      http:
-        paths:
-          - backend:
-              serviceName: nginx-fileshare
-              servicePort: 80
+  entryPoints:
+    - websecure
+  middlewares:
+    - https-redirectscheme
+  routes:
+    - match: Host(`dl.sldk.de`)
+      kind: Rule
+      services:
+        - name: nginx-fileshare
+          port: 80
+  tls:
+    certResolver: letsencrypt

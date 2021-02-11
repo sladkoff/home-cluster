@@ -18,14 +18,6 @@ spec:
   values:
     grafana:
       replicas: 1
-      ingress:
-        enabled: true
-        annotations:
-          kubernetes.io/ingress.class: traefik
-          ingress.kubernetes.io/ssl-force-host: "true"
-          ingress.kubernetes.io/ssl-redirect: "true"
-        hosts:
-          - grafana.sldk.de
       persistence:
         enabled: true
         storageClassName: local-path

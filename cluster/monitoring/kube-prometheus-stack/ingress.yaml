@@ -2,17 +2,18 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: clavis
+  name: grafana-ingress
+  namespace: monitoring
 spec:
   entryPoints:
     - websecure
   middlewares:
     - https-redirectscheme
   routes:
-    - match: Host(`www.forteapiano-unterricht.de`)
+    - match: Host(`grafana.sldk.de`)
       kind: Rule
       services:
-        - name: clavis
+        - name: kube-prometheus-stack-grafana
           port: 80
   tls:
     certResolver: letsencrypt

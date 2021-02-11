@@ -1,20 +1,18 @@
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
 metadata:
   name: fopido
-  annotations:
-    kubernetes.io/ingress.class: traefik
-    ingress.kubernetes.io/ssl-force-host: "true"
-    ingress.kubernetes.io/ssl-redirect: "true"
 spec:
-  rules:
-    - host: docs.fortepiano-unterricht.de
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: fopido
-                port:
-                  number: 80
+  entryPoints:
+    - websecure
+  middlewares:
+    - https-redirectscheme
+  routes:
+    - match: Host(`docs.forteapiano-unterricht.de`)
+      kind: Rule
+      services:
+        - name: fopido
+          port: 80
+  tls:
+    certResolver: letsencrypt
