@@ -7,3 +7,4 @@ resources:
 - helmrepositories/bitnami-charts.yaml
 - helmrepositories/prometheus-community-charts.yaml
 - helmrepositories/grafana-charts.yaml
+- helmrepositories/traefik-charts.yaml
