@@ -2137,6 +2137,7 @@ metadata:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/version: latest
     control-plane: controller
+    prometheus-service-monitor: "true"
   name: notification-controller
   namespace: flux-system
 spec:
@@ -2145,6 +2146,10 @@ spec:
     port: 80
     protocol: TCP
     targetPort: http
+  - name: http-prom
+    port: 8080
+    protocol: TCP
+    targetPort: http-prom
   selector:
     app: notification-controller
   type: ClusterIP
@@ -2156,6 +2161,27 @@ metadata:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/version: latest
     control-plane: controller
+    prometheus-service-monitor: "true"
+  name: helm-controller
+  namespace: flux-system
+spec:
+  ports:
+    - name: http-prom
+      port: 8080
+      protocol: TCP
+      targetPort: http-prom
+  selector:
+    app: helm-controller
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/instance: flux-system
+    app.kubernetes.io/version: latest
+    control-plane: controller
+    prometheus-service-monitor: "true"
   name: source-controller
   namespace: flux-system
 spec:
@@ -2164,6 +2190,10 @@ spec:
     port: 80
     protocol: TCP
     targetPort: http
+  - name: http-prom
+    port: 8080
+    protocol: TCP
+    targetPort: http-prom
   selector:
     app: source-controller
   type: ClusterIP
@@ -2175,6 +2205,7 @@ metadata:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/version: latest
     control-plane: controller
+    prometheus-service-monitor: "true"
   name: webhook-receiver
   namespace: flux-system
 spec:
@@ -2183,9 +2214,28 @@ spec:
     port: 80
     protocol: TCP
     targetPort: http-webhook
+  - name: http-prom
+    port: 8080
+    protocol: TCP
+    targetPort: http-prom
   selector:
     app: notification-controller
   type: ClusterIP
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: flux-system
+  namespace: flux-system
+spec:
+  selector:
+    matchLabels:
+      prometheus-service-monitor: "true"
+  namespaceSelector:
+    matchNames:
+      - flux-system
+  endpoints:
+    - port: http-prom
 ---
 apiVersion: apps/v1
 kind: Deployment

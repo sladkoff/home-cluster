@@ -19,6 +19,11 @@ spec:
     service:
       type: NodePort
       externalTrafficPolicy: Cluster
+    ports:
+      metrics:
+        port: 8080
+        expose: true
+        protocol: TCP
     persistence:
       enabled: true
       storageClass: local-path
@@ -31,8 +36,8 @@ spec:
       - "--entrypoints.web.http.redirections.entryPoint.to=:443"
       - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
       - "--entrypoints.web.http.redirections.entrypoint.permanent=true"
-      - "--api.insecure=true"
-      - "--accesslog=true"
+      - "--metrics.prometheus=true"
+      - "--metrics.prometheus.entryPoint=metrics"
       - "--log.level=INFO"
     env:
       - name: INWX_USERNAME
