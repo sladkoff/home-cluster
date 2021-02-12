@@ -7,7 +7,7 @@ spec:
   type: github
   address: https://github.com/sladkoff/home-cluster
   secretRef:
-    name: flux-system
+    name: github
 ---
 apiVersion: notification.toolkit.fluxcd.io/v1beta1
 kind: Alert

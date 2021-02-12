@@ -4,6 +4,8 @@ resources:
 - gotk-components.yaml
 - gotk-sync.yaml
 
+- secrets/github.yaml
+
 - helmrepositories/bitnami-charts.yaml
 - helmrepositories/prometheus-community-charts.yaml
 - helmrepositories/grafana-charts.yaml
