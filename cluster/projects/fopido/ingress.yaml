@@ -9,7 +9,7 @@ spec:
   middlewares:
     - https-redirectscheme
   routes:
-    - match: Host(`docs.forteapiano-unterricht.de`)
+    - match: Host(`docs.fortepiano-unterricht.de`)
       kind: Rule
       services:
         - name: fopido

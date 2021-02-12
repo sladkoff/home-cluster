@@ -9,7 +9,7 @@ spec:
   middlewares:
     - https-redirectscheme
   routes:
-    - match: Host(`www.forteapiano-unterricht.de`)
+    - match: Host(`www.fortepiano-unterricht.de`)
       kind: Rule
       services:
         - name: clavis
