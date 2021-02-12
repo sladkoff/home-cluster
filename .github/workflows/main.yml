@@ -27,6 +27,12 @@ jobs:
           name: build
       - uses: lra/setup-kubeval@v1.0.1
 
+
+      - name: Run kube-score
+        working-directory: build
+        run: |
+          ls
+
       - name: Run kubeval
         working-directory: build
         run: ls && kubeval --ignore-missing-schemas ./cluster.yaml
