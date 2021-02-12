@@ -21,33 +21,24 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
       - uses: actions/download-artifact@v2
         with:
           name: build
       - uses: lra/setup-kubeval@v1.0.1
 
-
-      - name: Run kube-score
-        run: |
-          ls
-
       - name: Run kubeval
-        working-directory: build
-        run: ls && kubeval --ignore-missing-schemas ./cluster.yaml
+        run: kubeval --ignore-missing-schemas ./cluster.yaml
         
   kube-score:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
       - uses: actions/download-artifact@v2
         with:
           name: build
 
       - name: Run kube-score
-        working-directory: build
         run: |
-          ls && wget -q -O ./kube-score https://github.com/zegl/kube-score/releases/download/v1.10.1/kube-score_1.10.1_linux_amd64 && \
+          wget -q -O ./kube-score https://github.com/zegl/kube-score/releases/download/v1.10.1/kube-score_1.10.1_linux_amd64 && \
             chmod +x ./kube-score && \
             ./kube-score score ./cluster.yaml
