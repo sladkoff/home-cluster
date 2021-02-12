@@ -1,0 +1,20 @@
+name: CI
+
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: imranismail/setup-kustomize@v1
+      - uses: lra/setup-kubeval@v1.0.1
+
+      - name: Build flux-like root kustomization
+        run: cd ./cluster && kustomize create --autodetect --recursive
+
+      - name: Run kubeval
+        run: kustomize build | kubeval --ignore-missing-schemas
+        
+      - name: Run kube-score
+        run: kustomize build | kube-score score -
