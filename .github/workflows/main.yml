@@ -15,7 +15,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: cluster.yml
-          path: ./cluster.yaml
+          path: ./cluster/cluster.yaml
           
   kubeval:
     runs-on: ubuntu-latest
