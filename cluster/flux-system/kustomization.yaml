@@ -8,3 +8,5 @@ resources:
 - helmrepositories/prometheus-community-charts.yaml
 - helmrepositories/grafana-charts.yaml
 - helmrepositories/traefik-charts.yaml
+
+- alerts/github.yaml
