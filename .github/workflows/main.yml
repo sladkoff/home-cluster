@@ -29,7 +29,7 @@ jobs:
 
       - name: Run kubeval
         working-directory: build
-        run: kubeval --ignore-missing-schemas ./cluster.yaml
+        run: ls && kubeval --ignore-missing-schemas ./cluster.yaml
         
   kube-score:
     needs: build
@@ -43,6 +43,6 @@ jobs:
       - name: Run kube-score
         working-directory: build
         run: |
-          wget -q -O ./kube-score https://github.com/zegl/kube-score/releases/download/v1.10.1/kube-score_1.10.1_linux_amd64 && \
+          ls && wget -q -O ./kube-score https://github.com/zegl/kube-score/releases/download/v1.10.1/kube-score_1.10.1_linux_amd64 && \
             chmod +x ./kube-score && \
             ./kube-score score ./cluster.yaml
