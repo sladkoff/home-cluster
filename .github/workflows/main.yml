@@ -29,7 +29,6 @@ jobs:
 
 
       - name: Run kube-score
-        working-directory: build
         run: |
           ls
 
