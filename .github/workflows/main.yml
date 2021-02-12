@@ -10,12 +10,12 @@ jobs:
       - uses: imranismail/setup-kustomize@v1
 
       - name: Build flux-like kustomization
-        run: cd ./cluster && kustomize create --autodetect --recursive && kustomize build > ./cluster.yaml
+        run: cd ./cluster && kustomize create --autodetect --recursive && kustomize build > ../cluster.yaml
         
       - uses: actions/upload-artifact@v2
         with:
           name: cluster.yml
-          path: ./cluster/cluster.yaml
+          path: ./cluster.yaml
           
   kubeval:
     runs-on: ubuntu-latest
