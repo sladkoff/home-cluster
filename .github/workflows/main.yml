@@ -26,6 +26,7 @@ jobs:
         with:
           name: cluster.yml
           path: ./cluster.yaml
+      - uses: lra/setup-kubeval@v1.0.1
 
       - name: Run kubeval
         run: kubeval --ignore-missing-schemas ./cluster.yaml
@@ -44,4 +45,4 @@ jobs:
         run: |
           wget -q -O ./kube-score https://github.com/zegl/kube-score/releases/download/v1.10.1/kube-score_1.10.1_linux_amd64 && \
             chmod +x ./kube-score && \
-            kustomize build ./cluster | ./kube-score score -
+            ./kube-score score ./cluster.yaml
