@@ -1,0 +1,44 @@
+name: CI
+
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: imranismail/setup-kustomize@v1
+
+      - name: Build flux-like kustomization
+        run: cd ./cluster && kustomize create --autodetect --recursive && kustomize build > ../cluster.yaml
+        
+      - uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: ./cluster.yaml
+          
+  kubeval:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: build
+      - uses: lra/setup-kubeval@v1.0.1
+
+      - name: Run kubeval
+        run: kubeval --ignore-missing-schemas ./cluster.yaml
+        
+  kube-score:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: build
+
+      - name: Run kube-score
+        run: |
+          wget -q -O ./kube-score https://github.com/zegl/kube-score/releases/download/v1.10.1/kube-score_1.10.1_linux_amd64 && \
+            chmod +x ./kube-score && \
+            ./kube-score score ./cluster.yaml
