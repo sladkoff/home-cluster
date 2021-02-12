@@ -18,6 +18,7 @@ jobs:
           path: ./cluster.yaml
           
   kubeval:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -30,6 +31,7 @@ jobs:
         run: kubeval --ignore-missing-schemas ./cluster.yaml
         
   kube-score:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
