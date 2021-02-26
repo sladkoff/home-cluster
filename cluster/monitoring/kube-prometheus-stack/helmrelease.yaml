@@ -25,6 +25,8 @@ spec:
         existingSecret: grafana
         userKey: admin-user
         passwordKey: admin-password
+      plugins:
+        - grafana-piechart-panel
     alertmanager:
       replicas: 1
     prometheus:
