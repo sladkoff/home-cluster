@@ -1,10 +1,10 @@
 {
   "enabled": true,
-  "timezone": "America/New_York",
+  "timezone": "Europe/Berlin",
   "semanticCommits": "enabled",
   "dependencyDashboard": true,
   "dependencyDashboardTitle": "Renovate Dashboard",
-  "commitBody": "Signed-off-by: Devin Buhl <onedr0p@users.noreply.github.com>",
+  "commitBody": "Signed-off-by: Leonid Koftun <leonid.koftun@gmail.com>",
   // do not notify on closed unmerged PRs
   "suppressNotifications": ["prIgnoreNotification"],
   // only rebase PRs when there's a conflict
@@ -12,8 +12,7 @@
   "kubernetes": {
     "fileMatch": ["cluster/.+\\.yaml$"],
     "ignorePaths": [
-      "cluster/flux-system/",
-      "cluster/actions-runner-system/"
+      "cluster/flux-system/"
     ]
   },
   "helm-values": {
@@ -27,16 +26,6 @@
         "registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)\n *version: (?<currentValue>.*)\n"
       ],
       "datasourceTemplate": "helm"
-    },
-    // regexManager to read and process actions-runner-controller runner images
-    {
-      "fileMatch": [
-        "cluster/actions-runner-system/runners/.+\\.yaml$"
-      ],
-      "matchStrings": [
-        "image: (?<depName>.*?):(?<currentValue>.*?)\n"
-      ],
-      "datasourceTemplate": "docker"
     }
   ],
   "packageRules": [
@@ -85,53 +74,5 @@
       "matchUpdateTypes": ["patch"],
       "labels": ["renovate/helm-release", "dependency/patch"]
     },
-    // custom version schemes
-    {
-      "matchDatasources": ["docker"],
-      "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)-(?<compatibility>.*)$",
-      "matchPackageNames": ["blakeblackshear/frigate"]
-    },
-    {
-      "matchDatasources": ["docker"],
-      "versioning": "regex:^RELEASE\\.(?<major>\\d{4})-(?<minor>\\d{2})-(?<patch>\\d{2})",
-      "matchPackageNames": ["minio/minio"]
-    },
-    // pin package versions
-    {
-      "matchDatasources": ["docker"],
-      "allowedVersions": "<13",
-      "matchPackageNames": [
-        "postgres",
-        "prodrigestivill/postgres-backup-local"
-      ]
-    },
-    {
-      "matchDatasources": ["docker"],
-      "allowedVersions": "<2",
-      "matchPackageNames": [
-        "influxdb",
-      ]
-    },
-    {
-      "matchDatasources": ["helm"],
-      "allowedVersions": "<14",
-      "matchPackageNames": ["kube-prometheus-stack"]
-    },
-    // version strategies
-    {
-      "matchDatasources": ["docker"],
-      "versioning": "loose",
-      "matchPackageNames": ["plexinc/pms-docker"]
-    },
-    // enable auto-merge
-    {
-      "matchDatasources": ["docker"],
-      "automerge": true,
-      "requiredStatusChecks": null,
-      "matchUpdateTypes": ["minor", "patch"],
-      "matchPackageNames": [
-        "ghcr.io/k8s-at-home/jackett"
-      ]
-    }
   ]
 }
