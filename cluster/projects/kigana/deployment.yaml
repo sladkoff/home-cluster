@@ -1,0 +1,22 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kigana-web
+spec:
+  selector:
+    matchLabels:
+      app: kigana-web
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: kigana-web
+    spec:
+      containers:
+        - name: kigana-web
+          image: ghcr.io/kigana/kigana-web:latest
+          ports:
+            - containerPort: 3000
+      imagePullSecrets:
+        - name: github-container-registry

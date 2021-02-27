@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../../kustomize/secrets-base
+  - ingress.yaml
+  - deployment.yaml
+  - service.yaml
+
+namespace: kigana
+
+images:
+  - name: ghcr.io/kigana/kigana-web
+    newTag: latest
