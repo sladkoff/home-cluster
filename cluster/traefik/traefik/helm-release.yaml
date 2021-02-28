@@ -44,7 +44,7 @@ spec:
       - "--entrypoints.web.http.redirections.entrypoint.permanent=true"
       - "--metrics.prometheus=true"
       - "--metrics.prometheus.entryPoint=metrics"
-      - "--log.level=INFO"
+      - "--log.level=DEBUG"
     env:
       - name: INWX_USERNAME
         valueFrom:
