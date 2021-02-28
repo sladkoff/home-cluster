@@ -37,14 +37,13 @@ spec:
       - "--certificatesresolvers.letsencrypt2.acme.email=leonid.koftun@gmail.com"
       - "--certificatesresolvers.letsencrypt2.acme.storage=/data/acme-tls.json"
       - "--certificatesresolvers.letsencrypt2.acme.caserver=https://acme-v02.api.letsencrypt.org/directory"
-      - "--certificatesresolvers.letsencrypt2.acme.httpchallenge=true"
-      - "--certificatesresolvers.letsencrypt2.acme.httpchallenge.entrypoint=web"
+      - "--certificatesresolvers.letsencrypt2.acme.tlschallenge=true"
       - "--entrypoints.web.http.redirections.entryPoint.to=:443"
       - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
       - "--entrypoints.web.http.redirections.entrypoint.permanent=true"
       - "--metrics.prometheus=true"
       - "--metrics.prometheus.entryPoint=metrics"
-      - "--log.level=DEBUG"
+      - "--log.level=INFO"
     env:
       - name: INWX_USERNAME
         valueFrom:
