@@ -15,4 +15,4 @@ spec:
         - name: kigana-web
           port: 80
   tls:
-    certResolver: letsencrypt
+    certResolver: letsencrypt2
