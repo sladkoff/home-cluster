@@ -5,6 +5,7 @@ resources:
   - ingress.yaml
   - deployment.yaml
   - service.yaml
+  - secret.yaml
 
 namespace: kigana
 
