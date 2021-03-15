@@ -10,5 +10,6 @@ resources:
 - helmrepositories/prometheus-community-charts.yaml
 - helmrepositories/grafana-charts.yaml
 - helmrepositories/traefik-charts.yaml
+- helmrepositories/minecraft-server-charts.yaml
 
 - alerts/github.yaml

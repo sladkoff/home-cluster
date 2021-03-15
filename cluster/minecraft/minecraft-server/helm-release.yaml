@@ -1,0 +1,69 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: minecraft
+  namespace: minecraft
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://prometheus-community.github.io/helm-charts
+      chart: minecraft
+      version: 3.0.2
+      sourceRef:
+        kind: HelmRepository
+        name: minecraft-server-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    imageTag: latest
+
+    resources:
+      requests:
+        memory: 512Mi
+        cpu: 500m
+
+    minecraftServer:
+      # This must be overridden, since we can't accept this for the user.
+      eula: "TRUE"
+      # One of: LATEST, SNAPSHOT, or a specific version (ie: "1.7.9").
+      version: "1.16.5"
+      # This can be one of "VANILLA", "FORGE", "SPIGOT", "BUKKIT", "PAPER", "FTBA", "SPONGEVANILLA"
+      type: "PAPER"
+      # Message of the Day
+      motd: "Welcome to Minecraft on Kubernetes!"
+      # If true, enable player-vs-player damage.
+      pvp: true
+      # Check accounts against Minecraft account service.
+      onlineMode: false
+      # If you adjust this, you may need to adjust resources.requests above to match.
+      memory: 1024M
+      # General JVM options to be passed to the Minecraft server invocation
+      jvmOpts: ""
+      # Options like -X that need to proceed general JVM options
+      jvmXXOpts: ""
+      serviceType: ClusterIP
+
+      extraPort:
+        containerPort: 9225
+        service:
+          enabled: true
+          annotations: { }
+          type: ClusterIP
+          port: 9225
+
+    persistence:
+      annotations: { }
+      ## minecraft data Persistent Volume Storage Class
+      ## If defined, storageClassName: <storageClass>
+      ## If set to "-", storageClassName: "", which disables dynamic provisioning
+      ## If undefined (the default) or set to null, no storageClassName spec is
+      ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+      ##   GKE, AWS & OpenStack)
+      ##
+      # storageClass: "-"
+      dataDir:
+        # Set this to false if you don't care to persist state between restarts.
+        enabled: false
+        Size: 10Gi
