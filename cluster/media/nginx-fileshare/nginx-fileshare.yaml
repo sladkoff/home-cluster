@@ -63,7 +63,7 @@ spec:
     spec:
       containers:
         - name: nginx-fileshare
-          image: nginx:1.19
+          image: nginx:1.20
           ports:
             - name: http
               containerPort: 80
